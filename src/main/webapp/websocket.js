@@ -7,7 +7,7 @@ function connect() {
     var host = document.location.host;
 
                          /* ws://localhost:8080/chat/user */
-    ws = new WebSocket("ws://+ " + host + "/chat/" + username);
+    ws = new WebSocket("ws://" + host + "/chat/" + username);
     console.log(ws)
     ws.onmessage = function(event) {
         var log = document.getElementById("log");
