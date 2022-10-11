@@ -11,7 +11,16 @@ public class MessageDecoder implements Decoder.Text<Message> {
 
     @Override
     public Message decode(String s) throws DecodeException {
-        Message message = gson.fromJson(s, Message.class);
+        System.out.println("STRING ON DECODE " + s);
+        Message message = null;
+        try {
+            message = gson.fromJson(s, Message.class);
+        } catch (com.google.gson.JsonSyntaxException exception) {
+            System.out.println("Other type of format received");
+            Message errorMessage = new Message();
+            errorMessage.setType(MessageType.UNDEFINED);
+            return errorMessage;
+        }
         return message;
     }
 

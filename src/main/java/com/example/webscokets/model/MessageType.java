@@ -6,7 +6,10 @@ public enum MessageType {
     @SerializedName("content")
     CONTENT("content"),
     @SerializedName("disconnect")
-    DISCONNECT("disconnect");
+    DISCONNECT("disconnect"),
+    @SerializedName("undefined")
+    UNDEFINED("undefined");
+
 
     private String text;
 

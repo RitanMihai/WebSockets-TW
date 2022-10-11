@@ -3,15 +3,18 @@ package com.example.webscokets.model;
 import com.google.gson.annotations.SerializedName;
 
 public class Message {
+    @Override
+    public String toString() {
+        return "Message{" +
+                "from='" + from + '\'' +
+                ", content='" + content + '\'' +
+                '}';
+    }
+
     private String from;
     private String content;
     @SerializedName("type")
-    private MessageType type;
-
-    @Override
-    public String toString() {
-        return super.toString();
-    }
+    private MessageType type = MessageType.CONTENT; /* Default value */
 
     public String getFrom() {
         return from;

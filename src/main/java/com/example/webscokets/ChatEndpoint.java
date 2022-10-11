@@ -23,12 +23,13 @@ public class ChatEndpoint {
     public void onOpen(Session session, @PathParam("username") String username) {
         this.session = session;
         chatEndpoints.add(this);
-
+        System.out.println("SESSION " + session);
         users.put(session.getId(), username);
 
         Message message = new Message();
         message.setFrom(username);
         message.setContent("Connected!");
+        message.setType(MessageType.CONTENT);
         broadcast(message);
     }
 
@@ -44,6 +45,9 @@ public class ChatEndpoint {
             case DISCONNECT:{
                 this.onClose(session);
             }
+            case UNDEFINED:{
+                /* Nothing */
+            }
             break;
         }
     }
@@ -54,12 +58,13 @@ public class ChatEndpoint {
         Message message = new Message();
         message.setFrom(users.get(session.getId()));
         message.setContent("Disconnected!");
+        message.setType(MessageType.DISCONNECT);
         broadcast(message);
     }
 
     @OnError
     public void onError(Session session, Throwable throwable) {
-        // Do error handling here
+        System.out.println("Error " + throwable);
     }
 
     private static void broadcast(Message message)  {
