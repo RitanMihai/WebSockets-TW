@@ -1,25 +1,26 @@
 let ws;
-const DISSCONECT = "Disconnect";
+const DISCONNECT = "Disconnect";
 const CONNECT = "Connect";
 
 function connect() {
-    var username = document.getElementById("username").value;
-    var host = document.location.host;
+    let username = document.getElementById("username").value;
+    let host = document.location.host;
 
                          /* ws://localhost:8080/chat/user */
     ws = new WebSocket("ws://" + host + "/chat/" + username);
     console.log(ws)
     ws.onmessage = function(event) {
-        var log = document.getElementById("log");
+        let log = document.getElementById("log");
         console.log(event.data);
-        var message = JSON.parse(event.data);
+
+        let message = JSON.parse(event.data);
         log.innerHTML += message.from + " : " + message.content + "\n";
     };
 }
 
 function send() {
-    var content = document.getElementById("msg").value;
-    var json = JSON.stringify({
+    let content = document.getElementById("msg").value;
+    let json = JSON.stringify({
         "content":content,
         "type":"content"
     });
@@ -30,8 +31,8 @@ function send() {
     document.getElementById("msg").value = "";
 }
 
-function dissconect () {
-    var json = JSON.stringify({
+function disconnect () {
+    let json = JSON.stringify({
         "content": "disconnect",
         "type":"disconnect"
     });
@@ -40,19 +41,19 @@ function dissconect () {
 }
 
 function connectionCall() {
-    var content = document.getElementById("conBtn").textContent;
+    let content = document.getElementById("conBtn").textContent;
 
-    if (content === DISSCONECT) {
+    if (content === DISCONNECT) {
         /* Change button's text to Connect */
         document.getElementById("conBtn").textContent = CONNECT;
         /* Enable write function & erase the old username */
         document.getElementById("username").disabled = false;
         document.getElementById("username").value = "";
-        this.dissconect();
+        this.disconnect();
     }
     else {
         /* Change button's text to Disconnected and disable the field */
-        document.getElementById("conBtn").textContent = DISSCONECT;
+        document.getElementById("conBtn").textContent = DISCONNECT;
         document.getElementById("username").disabled = true;
         this.connect();
     }
