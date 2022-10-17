@@ -11,7 +11,7 @@ import javax.websocket.*;
 
 @ClientEndpoint( decoders = MessageDecoder.class, encoders = MessageEncoder.class)
 public class WebsocketClient {
-    private final String uri="ws://localhost:8080/chat/Ritan";
+    private final String uri="ws://localhost:8081/chat/Ritan";
     private Session session;
 
     public WebsocketClient(){
